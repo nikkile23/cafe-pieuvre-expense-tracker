@@ -324,9 +324,9 @@ def show_event(selected_event_name):
 home_tab, greenville_tab, augusta_tab, myrtle_tab = st.tabs(
     [
         "🏠 Home",
-        "🍵 Greenville",
-        "🍵 Augusta",
-        "🍵 Myrtle Beach"
+        "Greenville",
+        "Augusta",
+        "Myrtle Beach"
     ]
 )
 
