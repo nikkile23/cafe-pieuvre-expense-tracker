@@ -9,3 +9,6 @@ backgroundColor = "#F7F3EA"
 secondaryBackgroundColor = "#E8E3D7"
 
 textColor = "#2F352C"
+
+font = "sans-serif"
+headingFont = "serif"
