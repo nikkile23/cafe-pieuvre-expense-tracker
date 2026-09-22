@@ -13,8 +13,7 @@ Members = ["Nikki Le", "Quan Vu", "Quan Nguyen"]
 # -------------------------
 
 st.title("Cafe Pieuvre")
-st.caption("Pop Up Expense Tracker!")
-
+st.caption("matcha matcha matcha")
 
 # -------------------------
 # EVENT INFORMATION
