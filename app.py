@@ -11,7 +11,7 @@ Members = ["Nikki Le", "Quan Vu", "Quan Nguyen"]
 # -------------------------
 # PAGE TITLE
 # -------------------------
-st.image("images/clearocto.png", width=180)
+st.image("images/weedmatcha.png", use_container_width=True)
 st.title("Cafe Pieuvre")
 st.caption("matcha matcha matcha")
 
