@@ -5,7 +5,7 @@ import streamlit as st
 # MEMBERS
 # -------------------------
 
-Members = ["Nikki", "Quan Vu", "Quan Nguyen"]
+Members = ["Nikki Le", "Quan Vu", "Quan Nguyen"]
 
 
 # -------------------------
