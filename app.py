@@ -332,7 +332,8 @@ home_tab, greenville_tab, augusta_tab, myrtle_tab = st.tabs(
         "🏠 Home",
         "Greenville",
         "Augusta",
-        "Myrtle Beach"
+        "Myrtle Beach",
+        "Thrift Street Pt 2"
     ]
 )
 
