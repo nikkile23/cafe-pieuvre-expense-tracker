@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 # -------------------------
 # MEMBERS
 # -------------------------
@@ -343,7 +342,6 @@ home_tab, greenville_tab, augusta_tab, myrtle_tab, thriftstreet_tab = st.tabs(
 # -------------------------
 # HOME PAGE
 # -------------------------
-
 with home_tab:
 
     st.header("Welcome to Cafe Pieuvre 🍵")
@@ -354,35 +352,68 @@ with home_tab:
 
     st.divider()
 
-    col1, col2, col3, col4 = st.columns(4)
+    st.markdown(
+        """
+        <style>
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
 
-    with col1:
-        st.markdown("""
-### Greenville
-📅 September 20, 2026  
-**Completed**
-""")
+        .event-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            min-height: 38px;
+        }
 
-    with col2:
-        st.markdown("""
-### Augusta
-📅 October 2, 2026  
-**Upcoming**
-""")
+        .event-date {
+            margin: 0 0 12px 0;
+        }
 
-    with col3:
-        st.markdown("""
-### Myrtle Beach
-📅 October 3, 2026  
-**Upcoming**
-""")
+        .event-status {
+            margin: 0;
+            font-weight: 600;
+        }
 
-    with col4:
-        st.markdown("""
-### Thrift Street
-📅 October 10, 2026  
-**Upcoming**
-""")
+        @media (max-width: 700px) {
+            .event-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        </style>
+
+        <div class="event-grid">
+
+            <div class="event-card">
+                <h3>Greenville</h3>
+                <p class="event-date">📅 September 20, 2026</p>
+                <p class="event-status">Completed</p>
+            </div>
+
+            <div class="event-card">
+                <h3>Augusta</h3>
+                <p class="event-date">📅 October 2, 2026</p>
+                <p class="event-status">Upcoming</p>
+            </div>
+
+            <div class="event-card">
+                <h3>Myrtle Beach</h3>
+                <p class="event-date">📅 October 3, 2026</p>
+                <p class="event-status">Upcoming</p>
+            </div>
+
+            <div class="event-card">
+                <h3>Thrift Street</h3>
+                <p class="event-date">📅 October 10, 2026</p>
+                <p class="event-status">Upcoming</p>
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 # -------------------------
 # GREENVILLE
 # -------------------------
