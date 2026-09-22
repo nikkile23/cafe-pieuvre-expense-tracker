@@ -67,13 +67,13 @@ if "events" not in st.session_state:
         },
 
         "Augusta Pop Up": {
-            "date": "10/4/2026",
+            "date": "10/02/2026",
             "expenses": [],
             "revenue": 0
         },
 
         "Myrtle Beach Pop Up": {
-            "date": "10/18/2026",
+            "date": "10/03/2026",
             "expenses": [],
             "revenue": 0
         }
