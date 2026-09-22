@@ -357,26 +357,32 @@ with home_tab:
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.subheader("Greenville")
-        st.write("📅 September 20, 2026")
-        st.write("Completed")
+        st.markdown("""
+### Greenville
+📅 September 20, 2026  
+**Completed**
+""")
 
     with col2:
-        st.subheader("Augusta")
-        st.write("📅 October 2, 2026")
-        st.write("Upcoming")
+        st.markdown("""
+### Augusta
+📅 October 2, 2026  
+**Upcoming**
+""")
 
     with col3:
-        st.subheader("Myrtle Beach")
-        st.write("📅 October 3, 2026")
-        st.write("Upcoming")
+        st.markdown("""
+### Myrtle Beach
+📅 October 3, 2026  
+**Upcoming**
+""")
 
     with col4:
-        st.subheader("Thrift Street")
-        st.write("📅 October 10, 2026")
-        st.write("Upcoming")
-
-
+        st.markdown("""
+### Thrift Street
+📅 October 10, 2026  
+**Upcoming**
+""")
 # -------------------------
 # GREENVILLE
 # -------------------------
