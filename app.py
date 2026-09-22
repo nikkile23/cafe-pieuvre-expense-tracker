@@ -18,9 +18,19 @@ if "events" not in st.session_state:
             "date": "9/20/2026",
             "expenses": [
                 {
-                    "item": "Vendor Fee",
+                    "item": "Greenville Vendor Fee",
                     "cost": 150,
                     "paid_by": "Quan Nguyen"
+                },
+                {
+                    "item": "Augusta Vendor Fee",
+                    "cost": 50,
+                    "paid_by":"Quan Nguyen"
+                },
+                {
+                    "item": "Myrtle Vendor Fee",
+                    "cost": 50,
+                    "paid_by":"Quan Vu"
                 },
                 {
                     "item": "Amazon Haul",
