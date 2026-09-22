@@ -345,11 +345,9 @@ home_tab, greenville_tab, augusta_tab, myrtle_tab, thriftstreet_tab = st.tabs(
 
 with home_tab:
 
-    st.header("Welcome to Cafe Pieuvre 🍵")
+    st.header("Track expenses, revenue, profits, and payouts for each Cafe Pieuvre pop-up.")
 
-    st.write(
-        "Track expenses, revenue, profits, and payouts for each Cafe Pieuvre pop-up."
-    )
+ 
 
     st.divider()
 
