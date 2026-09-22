@@ -78,7 +78,7 @@ if "events" not in st.session_state:
             "revenue": 0
         },
 
-        "Thrift Street Pt 2": {
+        "Thrift Street Pt. 2": {
             "date": "10/10/2026",
             "expenses": [],
             "revenue": 0
@@ -327,13 +327,13 @@ def show_event(selected_event_name):
 # EVENT TABS
 # -------------------------
 
-home_tab, greenville_tab, augusta_tab, myrtle_tab = st.tabs(
+home_tab, greenville_tab, augusta_tab, myrtle_tab, thriftstreet_tab = st.tabs(
     [
         "🏠 Home",
         "Greenville",
         "Augusta",
         "Myrtle Beach",
-        "Thrift Street Pt 2"
+        "Thrift Street Pt. 2",
     ]
 )
 
@@ -352,7 +352,7 @@ with home_tab:
 
     st.divider()
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(3)
 
     with col1:
         st.subheader("Greenville")
@@ -368,6 +368,11 @@ with home_tab:
         st.subheader("Myrtle Beach")
         st.write("📅 October 18, 2026")
         st.write("Upcoming")
+    with col4:
+        st.subheader("Thrift Street Pt 2")
+        st.write("📅 October 10, 2026")
+        st.write("Upcoming")
+
 
 # -------------------------
 # GREENVILLE
@@ -399,4 +404,10 @@ with myrtle_tab:
 
     show_event(
         "Myrtle Beach Pop Up"
+    )
+
+with thriftstreet_tab:
+
+    show_event(
+        "Thrift Street Pt. 2 Pop Up"
     )
