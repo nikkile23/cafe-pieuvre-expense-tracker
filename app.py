@@ -7,8 +7,8 @@ Members = ["Nikki", "Quan Vu", "Quan Nguyen"]
 
 # PAGE TITLE
 
-st.title("Cafe Pieuvre Expense Tracker")
-st.write("Welcome to Cafe Pieuvre's Expense Tracker!")
+st.title("Cafe Pieuvre")
+st.caption("Pop Up Expense Tracker!")
 
 
 # -------------------------
@@ -337,43 +337,30 @@ home_tab, greenville_tab, augusta_tab, myrtle_tab = st.tabs(
 
 with home_tab:
 
-    st.header("Cafe Pieuvre Events 🐙")
+    st.header("Welcome to Cafe Pieuvre 🍵")
 
     st.write(
-        "Choose one of the pop-ups above to view its "
-        "expenses, revenue, profit, and member payouts."
-    )
-
-    st.subheader("Our Pop-Ups")
-
-    st.write(
-        "🍵 **Greenville Pop Up**"
-    )
-
-    st.write(
-        "September 20, 2026"
+        "Track expenses, revenue, profits, and payouts for each Cafe Pieuvre pop-up."
     )
 
     st.divider()
 
-    st.write(
-        "🍵 **Augusta Pop Up**"
-    )
+    col1, col2, col3 = st.columns(3)
 
-    st.write(
-        "October 4, 2026"
-    )
+    with col1:
+        st.subheader("Greenville")
+        st.write("📅 September 20, 2026")
+        st.write("Completed")
 
-    st.divider()
+    with col2:
+        st.subheader("Augusta")
+        st.write("📅 October 4, 2026")
+        st.write("Upcoming")
 
-    st.write(
-        "🍵 **Myrtle Beach Pop Up**"
-    )
-
-    st.write(
-        "October 18, 2026"
-    )
-
+    with col3:
+        st.subheader("Myrtle Beach")
+        st.write("📅 October 18, 2026")
+        st.write("Upcoming")
 
 # -------------------------
 # GREENVILLE
