@@ -76,6 +76,12 @@ if "events" not in st.session_state:
             "date": "10/03/2026",
             "expenses": [],
             "revenue": 0
+        },
+
+        "Thrift Street Pt 2": {
+            "date": "10/10/2026",
+            "expenses": [],
+            "revenue": 0
         }
     }
 
