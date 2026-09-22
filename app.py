@@ -372,7 +372,7 @@ with home_tab:
         st.write("Upcoming")
 
     with col4:
-        st.subheader("Thrift Street Pt. 2")
+        st.subheader("Thrift Street")
         st.write("📅 October 10, 2026")
         st.write("Upcoming")
 
