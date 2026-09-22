@@ -45,7 +45,7 @@ if "events" not in st.session_state:
                 {
                     "item": "Amazon Haul",
                     "cost": 115,
-                    "paid_by": "Nikki"
+                    "paid_by": "Nikki Le"
                 },
                 {
                     "item": "Canopy Weights",
@@ -65,7 +65,7 @@ if "events" not in st.session_state:
                 {
                     "item": "Canopy Tent",
                     "cost": 80,
-                    "paid_by": "Nikki"
+                    "paid_by": "Nikki Le"
                 }
             ],
             "revenue": 646
