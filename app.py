@@ -1,11 +1,16 @@
 import streamlit as st
 
+
+# -------------------------
 # MEMBERS
+# -------------------------
 
 Members = ["Nikki", "Quan Vu", "Quan Nguyen"]
 
 
+# -------------------------
 # PAGE TITLE
+# -------------------------
 
 st.title("Cafe Pieuvre")
 st.caption("Pop Up Expense Tracker!")
@@ -35,7 +40,7 @@ if "events" not in st.session_state:
                 {
                     "item": "Myrtle Vendor Fee",
                     "cost": 50,
-                    "paid_by":"Quan Nguyen"
+                    "paid_by": "Quan Nguyen"
                 },
                 {
                     "item": "Amazon Haul",
@@ -116,8 +121,7 @@ def show_event(selected_event_name):
 
 
     # -------------------------
-    # CALCULATE HOW MUCH
-    # EACH MEMBER PAID
+    # CALCULATE AMOUNT PAID
     # -------------------------
 
     amount_paid = {}
@@ -280,13 +284,11 @@ def show_event(selected_event_name):
                     "Please enter what the expense was."
                 )
 
-
             elif cost <= 0:
 
                 st.error(
                     "Please enter a cost greater than $0."
                 )
-
 
             else:
 
@@ -333,7 +335,7 @@ home_tab, greenville_tab, augusta_tab, myrtle_tab, thriftstreet_tab = st.tabs(
         "Greenville",
         "Augusta",
         "Myrtle Beach",
-        "Thrift Street Pt. 2",
+        "Thrift Street Pt. 2"
     ]
 )
 
@@ -361,15 +363,16 @@ with home_tab:
 
     with col2:
         st.subheader("Augusta")
-        st.write("📅 October 4, 2026")
+        st.write("📅 October 2, 2026")
         st.write("Upcoming")
 
     with col3:
         st.subheader("Myrtle Beach")
-        st.write("📅 October 18, 2026")
+        st.write("📅 October 3, 2026")
         st.write("Upcoming")
+
     with col4:
-        st.subheader("Thrift Street Pt 2")
+        st.subheader("Thrift Street Pt. 2")
         st.write("📅 October 10, 2026")
         st.write("Upcoming")
 
@@ -379,10 +382,7 @@ with home_tab:
 # -------------------------
 
 with greenville_tab:
-
-    show_event(
-        "Greenville Pop Up"
-    )
+    show_event("Greenville Pop Up")
 
 
 # -------------------------
@@ -390,10 +390,7 @@ with greenville_tab:
 # -------------------------
 
 with augusta_tab:
-
-    show_event(
-        "Augusta Pop Up"
-    )
+    show_event("Augusta Pop Up")
 
 
 # -------------------------
@@ -401,13 +398,12 @@ with augusta_tab:
 # -------------------------
 
 with myrtle_tab:
+    show_event("Myrtle Beach Pop Up")
 
-    show_event(
-        "Myrtle Beach Pop Up"
-    )
+
+# -------------------------
+# THRIFT STREET
+# -------------------------
 
 with thriftstreet_tab:
-
-    show_event(
-        "Thrift Street Pt. 2 Pop Up"
-    )
+    show_event("Thrift Street Pt. 2")
