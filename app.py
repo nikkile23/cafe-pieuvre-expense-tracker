@@ -79,7 +79,7 @@ if "events" not in st.session_state:
                     "paid_by": "Nikki Le"
                 },
                 {
-                    "item": "Thrift street fee"
+                    "item": "Thrift street fee",
                     "cost": 75,
                     "paid_by": "Nikki Le"
                 }
