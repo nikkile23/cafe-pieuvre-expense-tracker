@@ -72,7 +72,19 @@ if "events" not in st.session_state:
 
         "Augusta Pop Up": {
             "date": "10/02/2026",
-            "expenses": [],
+            "expenses": [
+                {
+                    "item": "Yame Matcha",
+                    "cost": 256,
+                    "paid_by": "Nikki Le"
+                },
+                {
+                    "item": "Thrift street fee"
+                    "cost": 75,
+                    "paid_by": "Nikki Le"
+                }
+
+            ],
             "revenue": 0
         },
 
@@ -303,26 +315,65 @@ def show_event(selected_event_name):
 
                 st.rerun()
 
+# -------------------------
+# EXPENSE LIST
+# -------------------------
+
+st.subheader("Expense List")
+
+if len(event["expenses"]) > 0:
+
+    st.dataframe(
+        event["expenses"],
+        use_container_width=True
+    )
 
     # -------------------------
-    # EXPENSE LIST
+    # DELETE AN EXPENSE
     # -------------------------
 
-    st.subheader("Expense List")
+    st.subheader("Delete an Expense")
 
-    if len(event["expenses"]) > 0:
+    expense_options = []
 
-        st.dataframe(
-            event["expenses"],
-            use_container_width=True
+    for i, expense in enumerate(event["expenses"]):
+
+        expense_options.append(
+            f"{i + 1}. {expense['item']} - "
+            f"${expense['cost']:.2f} - "
+            f"Paid by {expense['paid_by']}"
         )
 
-    else:
+    expense_to_delete = st.selectbox(
+        "Select the expense you want to delete:",
+        expense_options,
+        key=f"delete_expense_{selected_event_name}"
+    )
 
-        st.write(
-            "No expenses have been added yet."
+    if st.button(
+        "Delete Expense",
+        key=f"delete_button_{selected_event_name}"
+    ):
+
+        index_to_delete = expense_options.index(
+            expense_to_delete
         )
 
+        deleted_expense = event["expenses"].pop(
+            index_to_delete
+        )
+
+        st.success(
+            f"Deleted: {deleted_expense['item']}"
+        )
+
+        st.rerun()
+
+else:
+
+    st.write(
+        "No expenses have been added yet."
+    )
 
 # -------------------------
 # EVENT TABS
