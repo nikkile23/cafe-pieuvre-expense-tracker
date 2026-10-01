@@ -1,4 +1,15 @@
 import streamlit as st
+from supabase import create_client
+
+
+# -------------------------
+# SUPABASE CONNECTION
+# -------------------------
+
+supabase = create_client(
+    st.secrets["SUPABASE_URL"],
+    st.secrets["SUPABASE_KEY"]
+)
 
 
 # -------------------------
@@ -9,97 +20,86 @@ Members = ["Nikki Le", "Quan Vu", "Quan Nguyen"]
 
 
 # -------------------------
+# EVENT INFORMATION
+# Expenses are now stored in Supabase
+# -------------------------
+
+EVENTS = {
+    "Greenville Pop Up": {
+        "date": "9/20/2026",
+        "revenue": 646
+    },
+
+    "Augusta Pop Up": {
+        "date": "10/02/2026",
+        "revenue": 0
+    },
+
+    "Myrtle Beach Pop Up": {
+        "date": "10/03/2026",
+        "revenue": 0
+    },
+
+    "Thrift Street Pt. 2": {
+        "date": "10/10/2026",
+        "revenue": 0
+    }
+}
+
+
+# -------------------------
+# SUPABASE FUNCTIONS
+# -------------------------
+
+def load_expenses(event_name):
+    response = (
+        supabase
+        .table("expenses")
+        .select("*")
+        .eq("event", event_name)
+        .order("id")
+        .execute()
+    )
+
+    expenses = response.data
+
+    # Make sure cost behaves like a number
+    for expense in expenses:
+        expense["cost"] = float(expense["cost"])
+
+    return expenses
+
+
+def add_expense(event_name, item, cost, paid_by):
+    supabase.table("expenses").insert({
+        "event": event_name,
+        "item": item,
+        "cost": float(cost),
+        "paid_by": paid_by
+    }).execute()
+
+
+def delete_expense(expense_id):
+    (
+        supabase
+        .table("expenses")
+        .delete()
+        .eq("id", expense_id)
+        .execute()
+    )
+
+
+# -------------------------
 # PAGE TITLE
 # -------------------------
-st.image("images/weedmatcha.png", use_container_width=True)
+
+st.image(
+    "images/weedmatcha.png",
+    use_container_width=True
+)
+
 st.title("Cafe Pieuvre")
 st.caption("matcha matcha matcha")
-
-# -------------------------
-# EVENT INFORMATION
-# -------------------------
-
-if "events" not in st.session_state:
-
-    st.session_state.events = {
-
-        "Greenville Pop Up": {
-            "date": "9/20/2026",
-            "expenses": [
-                {
-                    "item": "Greenville Vendor Fee",
-                    "cost": 150,
-                    "paid_by": "Quan Nguyen"
-                },
-                {
-                    "item": "Augusta Vendor Fee",
-                    "cost": 50,
-                    "paid_by": "Quan Vu"
-                },
-                {
-                    "item": "Myrtle Vendor Fee",
-                    "cost": 50,
-                    "paid_by": "Quan Nguyen"
-                },
-                {
-                    "item": "Amazon Haul",
-                    "cost": 115,
-                    "paid_by": "Nikki Le"
-                },
-                {
-                    "item": "Canopy Weights",
-                    "cost": 70,
-                    "paid_by": "Quan Vu"
-                },
-                {
-                    "item": "Target Haul",
-                    "cost": 30,
-                    "paid_by": "Quan Nguyen"
-                },
-                {
-                    "item": "Gas",
-                    "cost": 30,
-                    "paid_by": "Quan Vu"
-                },
-                {
-                    "item": "Canopy Tent",
-                    "cost": 80,
-                    "paid_by": "Nikki Le"
-                }
-            ],
-            "revenue": 646
-        },
-
-        "Augusta Pop Up": {
-            "date": "10/02/2026",
-            "expenses": [
-                {
-                    "item": "Yame Matcha",
-                    "cost": 256,
-                    "paid_by": "Nikki Le"
-                },
-                {
-                    "item": "Thrift street fee",
-                    "cost": 75,
-                    "paid_by": "Nikki Le"
-                }
-
-            ],
-            "revenue": 0
-        },
-
-        "Myrtle Beach Pop Up": {
-            "date": "10/03/2026",
-            "expenses": [],
-            "revenue": 0
-        },
-
-        "Thrift Street Pt. 2": {
-            "date": "10/10/2026",
-            "expenses": [],
-            "revenue": 0
-        }
-    }
 
 
 # -------------------------
@@ -108,7 +108,10 @@ if "events" not in st.session_state:
 
 def show_event(selected_event_name):
 
-    event = st.session_state.events[selected_event_name]
+    event = EVENTS[selected_event_name]
+
+    # Load current expenses directly from Supabase
+    event_expenses = load_expenses(selected_event_name)
 
     st.header(selected_event_name)
     st.write("Event Date:", event["date"])
@@ -120,7 +123,7 @@ def show_event(selected_event_name):
 
     total_expenses = 0
 
-    for expense in event["expenses"]:
+    for expense in event_expenses:
         total_expenses += expense["cost"]
 
 
@@ -140,12 +143,13 @@ def show_event(selected_event_name):
     for person in Members:
         amount_paid[person] = 0
 
-    for expense in event["expenses"]:
+    for expense in event_expenses:
 
         person = expense["paid_by"]
         cost = expense["cost"]
 
-        amount_paid[person] += cost
+        if person in amount_paid:
+            amount_paid[person] += cost
 
 
     # -------------------------
@@ -208,7 +212,6 @@ def show_event(selected_event_name):
         key=f"name_{selected_event_name}"
     ).strip().lower()
 
-
     if person_name:
 
         member_found = False
@@ -243,7 +246,6 @@ def show_event(selected_event_name):
                 )
 
                 break
-
 
         if member_found == False:
 
@@ -286,7 +288,6 @@ def show_event(selected_event_name):
             "Add Expense"
         )
 
-
         if submit:
 
             if item.strip() == "":
@@ -303,77 +304,113 @@ def show_event(selected_event_name):
 
             else:
 
-                new_expense = {
-                    "item": item,
-                    "cost": cost,
-                    "paid_by": paid_by
-                }
+                try:
 
-                event["expenses"].append(
-                    new_expense
+                    add_expense(
+                        selected_event_name,
+                        item.strip(),
+                        cost,
+                        paid_by
+                    )
+
+                    st.success(
+                        f"Added: {item.strip()}"
+                    )
+
+                    st.rerun()
+
+                except Exception as e:
+
+                    st.error(
+                        f"Could not add expense: {e}"
+                    )
+
+
+    # -------------------------
+    # EXPENSE LIST
+    # -------------------------
+
+    st.subheader("Expense List")
+
+    if len(event_expenses) > 0:
+
+        # Don't display the database ID or event name
+        display_expenses = []
+
+        for expense in event_expenses:
+
+            display_expenses.append({
+                "Item": expense["item"],
+                "Cost": expense["cost"],
+                "Paid By": expense["paid_by"]
+            })
+
+        st.dataframe(
+            display_expenses,
+            use_container_width=True,
+            hide_index=True
+        )
+
+
+        # -------------------------
+        # DELETE AN EXPENSE
+        # -------------------------
+
+        st.subheader("Delete an Expense")
+
+        expense_options = []
+
+        for i, expense in enumerate(event_expenses):
+
+            expense_options.append(
+                f"{i + 1}. {expense['item']} - "
+                f"${expense['cost']:.2f} - "
+                f"Paid by {expense['paid_by']}"
+            )
+
+        expense_to_delete = st.selectbox(
+            "Select the expense you want to delete:",
+            expense_options,
+            key=f"delete_expense_{selected_event_name}"
+        )
+
+        if st.button(
+            "Delete Expense",
+            key=f"delete_button_{selected_event_name}"
+        ):
+
+            index_to_delete = expense_options.index(
+                expense_to_delete
+            )
+
+            deleted_expense = event_expenses[
+                index_to_delete
+            ]
+
+            try:
+
+                delete_expense(
+                    deleted_expense["id"]
+                )
+
+                st.success(
+                    f"Deleted: {deleted_expense['item']}"
                 )
 
                 st.rerun()
 
-# -------------------------
-# EXPENSE LIST
-# -------------------------
+            except Exception as e:
 
-st.subheader("Expense List")
+                st.error(
+                    f"Could not delete expense: {e}"
+                )
 
-if len(event["expenses"]) > 0:
+    else:
 
-    st.dataframe(
-        event["expenses"],
-        use_container_width=True
-    )
-
-    # -------------------------
-    # DELETE AN EXPENSE
-    # -------------------------
-
-    st.subheader("Delete an Expense")
-
-    expense_options = []
-
-    for i, expense in enumerate(event["expenses"]):
-
-        expense_options.append(
-            f"{i + 1}. {expense['item']} - "
-            f"${expense['cost']:.2f} - "
-            f"Paid by {expense['paid_by']}"
+        st.write(
+            "No expenses have been added yet."
         )
 
-    expense_to_delete = st.selectbox(
-        "Select the expense you want to delete:",
-        expense_options,
-        key=f"delete_expense_{selected_event_name}"
-    )
-
-    if st.button(
-        "Delete Expense",
-        key=f"delete_button_{selected_event_name}"
-    ):
-
-        index_to_delete = expense_options.index(
-            expense_to_delete
-        )
-
-        deleted_expense = event["expenses"].pop(
-            index_to_delete
-        )
-
-        st.success(
-            f"Deleted: {deleted_expense['item']}"
-        )
-
-        st.rerun()
-
-else:
-
-    st.write(
-        "No expenses have been added yet."
-    )
 
 # -------------------------
 # EVENT TABS
@@ -396,33 +433,34 @@ home_tab, greenville_tab, augusta_tab, myrtle_tab, thriftstreet_tab = st.tabs(
 
 with home_tab:
 
-    st.header("Track expenses, revenue, profits, and payouts for each Cafe Pieuvre pop-up.")
-
- 
+    st.header(
+        "Track expenses, revenue, profits, and payouts for each Cafe Pieuvre pop-up."
+    )
 
     st.divider()
 
     col1, col2, col3, col4 = st.columns(4)
 
-with col1:
-    st.write("**Greenville**")
-    st.write("📅 September 20, 2026")
-    st.write("Completed")
+    with col1:
+        st.write("**Greenville**")
+        st.write("📅 September 20, 2026")
+        st.write("Completed")
 
-with col2:
-    st.write("**Augusta**")
-    st.write("📅 October 2, 2026")
-    st.write("Upcoming")
+    with col2:
+        st.write("**Augusta**")
+        st.write("📅 October 2, 2026")
+        st.write("Upcoming")
 
-with col3:
-    st.write("**Myrtle Beach**")
-    st.write("📅 October 3, 2026")
-    st.write("Upcoming")
+    with col3:
+        st.write("**Myrtle Beach**")
+        st.write("📅 October 3, 2026")
+        st.write("Upcoming")
 
-with col4:
-    st.write("**Thrift Street**")
-    st.write("📅 October 10, 2026")
-    st.write("Upcoming")
+    with col4:
+        st.write("**Thrift Street**")
+        st.write("📅 October 10, 2026")
+        st.write("Upcoming")
+
 
 # -------------------------
 # GREENVILLE
