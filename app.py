@@ -1,15 +1,14 @@
 import streamlit as st
-from supabase import create_client
+import requests
 
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
-# -------------------------
-# SUPABASE CONNECTION
-# -------------------------
-
-supabase = create_client(
-    st.secrets["SUPABASE_URL"],
-    st.secrets["SUPABASE_KEY"]
-)
+HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+    "Content-Type": "application/json"
+}
 
 
 # -------------------------
@@ -50,20 +49,22 @@ EVENTS = {
 # -------------------------
 # SUPABASE FUNCTIONS
 # -------------------------
-
 def load_expenses(event_name):
-    response = (
-        supabase
-        .table("expenses")
-        .select("*")
-        .eq("event", event_name)
-        .order("id")
-        .execute()
+
+    response = requests.get(
+        f"{SUPABASE_URL}/rest/v1/expenses",
+        headers=HEADERS,
+        params={
+            "select": "*",
+            "event": f"eq.{event_name}",
+            "order": "id.asc"
+        }
     )
 
-    expenses = response.data
+    response.raise_for_status()
 
-    # Make sure cost behaves like a number
+    expenses = response.json()
+
     for expense in expenses:
         expense["cost"] = float(expense["cost"])
 
@@ -71,23 +72,35 @@ def load_expenses(event_name):
 
 
 def add_expense(event_name, item, cost, paid_by):
-    supabase.table("expenses").insert({
-        "event": event_name,
-        "item": item,
-        "cost": float(cost),
-        "paid_by": paid_by
-    }).execute()
+
+    response = requests.post(
+        f"{SUPABASE_URL}/rest/v1/expenses",
+        headers={
+            **HEADERS,
+            "Prefer": "return=minimal"
+        },
+        json={
+            "event": event_name,
+            "item": item,
+            "cost": float(cost),
+            "paid_by": paid_by
+        }
+    )
+
+    response.raise_for_status()
 
 
 def delete_expense(expense_id):
-    (
-        supabase
-        .table("expenses")
-        .delete()
-        .eq("id", expense_id)
-        .execute()
+
+    response = requests.delete(
+        f"{SUPABASE_URL}/rest/v1/expenses",
+        headers=HEADERS,
+        params={
+            "id": f"eq.{expense_id}"
+        }
     )
 
+    response.raise_for_status()
 
 # -------------------------
 # PAGE TITLE
