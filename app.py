@@ -31,7 +31,7 @@ EVENTS = {
 
     "Augusta Pop Up": {
         "date": "10/02/2026",
-        "revenue": 0
+        "revenue": 477.5
     },
 
     "Myrtle Beach Pop Up": {
