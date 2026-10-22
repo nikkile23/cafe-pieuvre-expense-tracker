@@ -462,7 +462,7 @@ with home_tab:
     with col2:
         st.write("**Augusta**")
         st.write("📅 October 2, 2026")
-        st.write("Upcoming")
+        st.write("Completed")
 
     with col3:
         st.write("**Ageless**")
