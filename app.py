@@ -36,7 +36,7 @@ EVENTS = {
 
     "Ageless Pop Up": {
         "date": "10/23/2026",
-        "revenue": 0
+        "revenue": 329
     },
 
     "Thrift Street Pt. 2": {
