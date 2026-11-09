@@ -503,7 +503,7 @@ with greenville_tab:
 # -------------------------
 
 with augusta_tab:
-    show_event("Augusta Pt.2")
+    show_event("Augusta Pop Up")
 
 # -------------------------
 # AGELESS
@@ -517,7 +517,7 @@ with ageless_tab:
 # -------------------------
 
 with augusta2_tab:
-    show_event("Augusta Pt. 2 Pop Up")
+    show_event("Augusta Pt.2")
 
 
 # -------------------------
