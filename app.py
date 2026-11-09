@@ -39,6 +39,11 @@ EVENTS = {
         "revenue": 329
     },
 
+    "Augusta Pt.2": {
+        "date": "11/08/2026",
+        "revenue": 369.75
+    },
+
     "Thrift Street Pt. 2": {
         "date": "11/14/2026",
         "revenue": 0
@@ -429,16 +434,21 @@ def show_event(selected_event_name):
 # EVENT TABS
 # -------------------------
 
-home_tab, greenville_tab, augusta_tab, ageless_tab, thriftstreet_tab = st.tabs(
+home_tab, greenville_tab, augusta_tab, ageless_tab, augusta2_tab, thriftstreet_tab = st.tabs(
     [
         "🏠 Home",
         "Greenville",
         "Augusta",
         "Ageless",
+        "Augusta Pt. 2",
         "Thrift Street Pt. 2"
     ]
 )
 
+
+# -------------------------
+# HOME PAGE
+# -------------------------
 
 # -------------------------
 # HOME PAGE
@@ -467,10 +477,15 @@ with home_tab:
     with col3:
         st.write("**Ageless**")
         st.write("📅 October 23, 2026")
-        st.write("Upcoming")
+        st.write("Completed")
 
     with col4:
-        st.write("**Thrift Street**")
+            st.write("**Augusta 2.0**")
+            st.write("📅 November 8, 2026")
+            st.write("Completed")
+
+    with col5:
+        st.write("**Thrift Street 2.0**")
         st.write("📅 November 14, 2026")
         st.write("Upcoming")
 
@@ -497,6 +512,13 @@ with augusta_tab:
 
 with ageless_tab:
     show_event("Ageless Pop Up")
+
+# -------------------------
+# Augusta 2.0
+# -------------------------
+
+with augusta2_tab:
+    show_event("Augusta Pt. 2 Pop Up")
 
 
 # -------------------------
