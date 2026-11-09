@@ -503,8 +503,7 @@ with greenville_tab:
 # -------------------------
 
 with augusta_tab:
-    show_event("Augusta Pop Up")
-
+    show_event("Augusta Pt.2")
 
 # -------------------------
 # AGELESS
