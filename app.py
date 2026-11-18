@@ -47,6 +47,11 @@ EVENTS = {
     "Thrift Street Pt. 2": {
         "date": "11/14/2026",
         "revenue": 860.91
+    },
+
+    "Pretty in Vintage": {
+        "date": "11/22/2026",
+        "revenue": 0
     }
 }
 
@@ -434,14 +439,15 @@ def show_event(selected_event_name):
 # EVENT TABS
 # -------------------------
 
-home_tab, greenville_tab, augusta_tab, ageless_tab, augusta2_tab, thriftstreet_tab = st.tabs(
+home_tab, greenville_tab, augusta_tab, ageless_tab, augusta2_tab, thriftstreet_tab, prettyintinvintage_tab = st.tabs(
     [
         "🏠 Home",
         "Greenville",
         "Augusta",
         "Ageless",
         "Augusta Pt. 2",
-        "Thrift Street Pt. 2"
+        "Thrift Street Pt. 2",
+        "Pretty in Vintage"
     ]
 )
 
@@ -489,6 +495,11 @@ with home_tab:
         st.write("📅 November 14, 2026")
         st.write("Completed")
 
+    with col6:
+        st.write("**Pretty in Vintage**")
+        st.write("📅 November 22, 2026")
+        st.write("Upcoming")
+
 
 # -------------------------
 # GREENVILLE
@@ -526,3 +537,12 @@ with augusta2_tab:
 
 with thriftstreet_tab:
     show_event("Thrift Street Pt. 2")
+
+
+# -------------------------
+# PRETTY IN VINTAGE
+# -------------------------
+
+with prettyintinvintage_tab:
+    show_event("Pretty in Vintage")
+
