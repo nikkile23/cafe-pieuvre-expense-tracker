@@ -46,7 +46,7 @@ EVENTS = {
 
     "Thrift Street Pt. 2": {
         "date": "11/14/2026",
-        "revenue": 0
+        "revenue": 860.91
     }
 }
 
@@ -487,7 +487,7 @@ with home_tab:
     with col5:
         st.write("**Thrift Street 2.0**")
         st.write("📅 November 14, 2026")
-        st.write("Upcoming")
+        st.write("Completed")
 
 
 # -------------------------
