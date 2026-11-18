@@ -468,7 +468,7 @@ with home_tab:
 
     st.divider()
 
-    col1, col2, col3, col4, col5 = st.columns(5)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
 
     with col1:
         st.write("**Greenville**")
